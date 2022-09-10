@@ -2,6 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "admin-cursos": "apps/admin-cursos"
+    "admin-cursos": "apps/admin-cursos",
+    "domain": "libs/domain",
+    "exceptions": "libs/exceptions",
+    "types": "libs/types",
+    "utils": "libs/utils"
   }
 }
