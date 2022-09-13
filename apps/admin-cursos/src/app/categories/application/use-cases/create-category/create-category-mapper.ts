@@ -1,4 +1,5 @@
-import { CategoryProps } from '../../../domain/entities/category.entity';
+import { CoreCategoryProps } from '../../../domain/entities/core-category.entity';
+import { CreatedCategory } from './create-category.dto';
 
 export class CreateCategoryMapper {
   static toOutput({
@@ -6,12 +7,7 @@ export class CreateCategoryMapper {
     createdAt,
     code,
     name,
-  }: Required<CategoryProps & { id: string }>): {
-    id: string;
-    name: string;
-    code: string;
-    createdAt: Date;
-  } {
+  }: Required<CoreCategoryProps & { id: string }>): CreatedCategory {
     return { name, code, id, createdAt };
   }
 }

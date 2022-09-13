@@ -1,10 +1,11 @@
-import { Category, CategoryProps } from '../category.entity';
+import { Category } from '../category/category.entity';
 import { CategoryValidatorFactory } from '../../validators/category-validator.factory';
 import { InvalidParametersException } from '@admin-cursos/exceptions';
 import { DateTools, IdTools } from '@admin-cursos/utils';
 import { UniqueId } from '@admin-cursos/domain';
+import { CoreCategoryProps } from '../core-category.entity';
 
-let categoryProps: CategoryProps;
+let categoryProps: CoreCategoryProps;
 
 describe('Category unit tests', () => {
   const categoryValidator = CategoryValidatorFactory.create();
@@ -228,7 +229,7 @@ describe('Category unit tests', () => {
   });
 });
 // factories
-function createCategory(props: Partial<CategoryProps> = {}): Category {
+function createCategory(props: Partial<CoreCategoryProps> = {}): Category {
   const categoryResult = Category.create({ ...categoryProps, ...props });
   return categoryResult.value as Category;
 }

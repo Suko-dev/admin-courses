@@ -1,14 +1,18 @@
-import { AggregatedRoot, FieldErrors, UniqueId } from '@admin-cursos/domain';
+import {
+  Entity,
+  EntityValidator,
+  FieldErrors,
+  UniqueId,
+} from '@admin-cursos/domain';
 import {
   fail,
   InvalidParametersException,
   Result,
   succeed,
 } from '@admin-cursos/exceptions';
-import { CategoryValidatorFactory } from '../validators/category-validator.factory';
 import { DateTools } from '@admin-cursos/utils';
 
-export interface CategoryProps {
+export interface CoreCategoryProps {
   name: string;
   code: string;
   createdAt: Date;
@@ -16,8 +20,10 @@ export interface CategoryProps {
   deletedAt: Date | null;
 }
 
-export class Category extends AggregatedRoot<CategoryProps> {
-  private constructor(props: CategoryProps, id?: UniqueId) {
+export abstract class CoreCategory<
+  T extends CoreCategoryProps = CoreCategoryProps
+> extends Entity<T> {
+  protected constructor(props: T, id?: UniqueId) {
     super(id);
     this.props = props;
   }
@@ -42,19 +48,8 @@ export class Category extends AggregatedRoot<CategoryProps> {
     return this.props.deletedAt;
   }
 
-  static create(
-    props: CategoryProps,
-    uniqueId?: UniqueId
-  ): Result<InvalidParametersException, Category> {
-    const category = new Category(props, uniqueId);
-
-    const errors = category.getPropsErrors(category.props);
-
-    if (errors) {
-      return fail(new InvalidParametersException(errors));
-    }
-
-    return succeed(category);
+  get isActive(): boolean {
+    return !this.props.deletedAt;
   }
 
   public updateName(name: string): Result<InvalidParametersException, void> {
@@ -64,26 +59,28 @@ export class Category extends AggregatedRoot<CategoryProps> {
       return fail(new InvalidParametersException(errors));
     }
     this.props.name = name;
-
+    this.props.updatedAt = DateTools.now();
     return succeed();
   }
 
   public setActive(isActive: boolean): void {
-    if (!isActive) {
-      this.props.deletedAt = this.props.deletedAt
-        ? this.props.deletedAt
-        : DateTools.now();
-    } else {
+    if (!isActive && this.isActive) {
+      this.props.deletedAt = DateTools.now();
+      this.props.updatedAt = DateTools.now();
+    } else if (isActive && !this.isActive) {
       this.props.deletedAt = null;
+      this.props.updatedAt = DateTools.now();
     }
   }
 
-  private getPropsErrors(props: CategoryProps): FieldErrors | undefined {
-    const categoryValidator = CategoryValidatorFactory.create();
+  protected getPropsErrors(props: T): FieldErrors | undefined {
+    const categoryValidator = this.getPropsValidator();
     const isValid = categoryValidator.validate(props);
 
     if (!isValid) {
       return categoryValidator.errors;
     }
   }
+
+  protected abstract getPropsValidator(): EntityValidator;
 }

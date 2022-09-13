@@ -1,11 +1,11 @@
 import { CreateCategoryDto } from '../../dtos/create-category.dto';
 import { DateTools, IdTools } from '@admin-cursos/utils';
-import { CategoryFactory } from '../category.factory';
-import { Category } from '../category.entity';
+import { CategoryFactory } from '../category/category.factory';
+import { Category } from '../category/category.entity';
 import { categorySlugify } from '../../../utils/category-slugify';
 import { InvalidIdException } from '@admin-cursos/exceptions';
 
-describe('CategoryFactory unit tests', () => {
+describe('SubCategoryFactory unit tests', () => {
   let completeCreateCategoryDto: CreateCategoryDto;
   const defaultCreationDate = new Date('2022-01-01');
   const defaultUpdatedDate = new Date('2022-01-02');

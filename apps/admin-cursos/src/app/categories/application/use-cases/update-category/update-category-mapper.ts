@@ -1,7 +1,7 @@
-import { CategoryProps } from '../../../domain/entities/category.entity';
+import { CoreCategoryProps } from '../../../domain/entities/core-category.entity';
 
 export class UpdateCategoryMapper {
-  static toOutput(props: Required<CategoryProps & { id: string }>): {
+  static toOutput(props: Required<CoreCategoryProps & { id: string }>): {
     id: string;
     name: string;
     code: string;

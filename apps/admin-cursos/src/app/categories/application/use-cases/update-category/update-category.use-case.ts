@@ -1,5 +1,5 @@
 import { fail, succeed } from '@admin-cursos/exceptions';
-import { CategoryRepository } from '../../../domain/repositories/category/category.repository';
+import { CategoryRepository } from '../../../domain/repositories';
 import { UpdateCategoryMapper } from './update-category-mapper';
 import {
   UpdateCategoryInput,

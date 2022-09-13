@@ -16,12 +16,14 @@ export type CreateCategoryExceptions =
   | InternalServerError
   | DuplicatedEntityException;
 
+export type CreatedCategory = {
+  id: string;
+  name: string;
+  code: string;
+  createdAt: Date;
+};
+
 export type CreateCategoryOutput = Result<
   CreateCategoryExceptions,
-  {
-    id: string;
-    name: string;
-    code: string;
-    createdAt: Date;
-  }
+  CreatedCategory
 >;

@@ -1,6 +1,4 @@
-import { CategoryFactory } from '../../../../domain/entities/category.factory';
-import { Category } from '../../../../domain/entities/category.entity';
-import { CategoryRepository } from '../../../../domain/repositories/category/category.repository';
+import { CategoryRepository } from '../../../../domain/repositories';
 import { UpdateCategoryUseCase } from '../update-category.use-case';
 import {
   EntityNotFoundException,
@@ -10,6 +8,7 @@ import {
   succeed,
 } from '@admin-cursos/exceptions';
 import { UpdateCategoryInput } from '../update-category.dto';
+import { Category, CategoryFactory } from '../../../../domain/entities';
 import SpyInstance = jest.SpyInstance;
 
 describe('UpdateCategoryUseCase unit test', () => {
@@ -26,7 +25,7 @@ describe('UpdateCategoryUseCase unit test', () => {
     categoryRepositoryMock = {
       save: jest.fn(),
       findByIdOrFail: jest.fn(),
-    } as CategoryRepository;
+    } as unknown as CategoryRepository;
     categoryRepositoryFindSpy = jest.spyOn(
       categoryRepositoryMock,
       'findByIdOrFail'

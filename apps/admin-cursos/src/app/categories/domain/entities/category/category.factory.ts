@@ -1,7 +1,7 @@
-import { CreateCategoryDto } from '../dtos/create-category.dto';
+import { CreateCategoryDto } from '../../dtos/create-category.dto';
 import { UniqueId } from '@admin-cursos/domain';
 import { Category } from './category.entity';
-import { categorySlugify } from '../../utils/category-slugify';
+import { categorySlugify } from '../../../utils/category-slugify';
 import {
   fail,
   InvalidIdException,

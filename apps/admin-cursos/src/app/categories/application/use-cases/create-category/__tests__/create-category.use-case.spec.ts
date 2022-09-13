@@ -1,14 +1,13 @@
 import { CreateCategoryUseCase } from '../create-category.use-case';
-import { CategoryRepository } from '../../../../domain/repositories/category/category.repository';
+import { CategoryRepository } from '../../../../domain/repositories';
 import { CreateCategoryInput } from '../create-category.dto';
-import { CategoryFactory } from '../../../../domain/entities/category.factory';
 import {
   fail,
   InternalServerError,
   InvalidIdException,
   succeed,
 } from '@admin-cursos/exceptions';
-import { Category } from '../../../../domain/entities/category.entity';
+import { Category, CategoryFactory } from '../../../../domain/entities';
 import SpyInstance = jest.SpyInstance;
 
 describe('UpdateCategoryUseCase unit test', () => {

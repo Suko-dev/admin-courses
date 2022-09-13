@@ -1,8 +1,8 @@
 import { ClassValidatorEntityValidator } from '@admin-cursos/domain';
 import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { CategoryProps } from '../entities/category.entity';
+import { CoreCategoryProps } from '../entities/core-category.entity';
 
-class CategoryValidationProps {
+class CategoryValidationProps implements CoreCategoryProps {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -27,7 +27,7 @@ class CategoryValidationProps {
 }
 
 export class CategoryValidator extends ClassValidatorEntityValidator {
-  validate(data: CategoryProps): boolean {
+  validate(data: CoreCategoryProps): boolean {
     const validationProps = new CategoryValidationProps(data);
     return super.validate(validationProps);
   }

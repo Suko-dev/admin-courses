@@ -2,10 +2,10 @@ import {
   CreateCategoryInput,
   CreateCategoryOutput,
 } from './create-category.dto';
-import { CategoryFactory } from '../../../domain/entities/category.factory';
 import { fail, succeed } from '@admin-cursos/exceptions';
-import { CategoryRepository } from '../../../domain/repositories/category/category.repository';
+import { CategoryRepository } from '../../../domain/repositories';
 import { CreateCategoryMapper } from './create-category-mapper';
+import { CategoryFactory } from '../../../domain/entities';
 
 export class CreateCategoryUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}

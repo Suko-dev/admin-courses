@@ -1,9 +1,9 @@
 import { CategoryValidator } from '../category.validator';
-import { CategoryProps } from '../../entities/category.entity';
+import { CoreCategoryProps } from '../../entities/core-category.entity';
 
 describe('CategoryValidator unit test', () => {
   let categoryValidator: CategoryValidator;
-  let validProps: CategoryProps;
+  let validProps: CoreCategoryProps;
 
   beforeEach(() => {
     categoryValidator = new CategoryValidator();
