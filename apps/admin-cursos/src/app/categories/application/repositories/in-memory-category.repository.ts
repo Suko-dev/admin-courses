@@ -1,4 +1,4 @@
-import { CategoryRepository } from '../../domain/repositories';
+import { CategoriesRepository } from '../../domain/repositories';
 import {
   DuplicatedEntityException,
   EntityNotFoundException,
@@ -8,11 +8,11 @@ import {
   Result,
   succeed,
 } from '@admin-cursos/exceptions';
-import { Category } from '../../domain/entities/category/category.entity';
+import { Category } from '../../domain/entities';
 import { ListCategoriesView } from '../../domain/dtos/list-categories-view';
 import { PaginatedResource } from '@admin-cursos/types';
 
-export class InMemoryCategoryRepository implements CategoryRepository {
+export class InMemoryCategoryRepository implements CategoriesRepository {
   inMemoryCategories: Category[] = [];
 
   async findByIdOrFail(
@@ -54,23 +54,6 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     return succeed();
   }
 
-  private saveSingleCategory(category) {
-    const duplicatedCode = this.inMemoryCategories.find(
-      (existingCategory) => existingCategory.code === category.code
-    );
-
-    if (duplicatedCode && duplicatedCode.id !== category.id) {
-      return fail(new DuplicatedEntityException());
-    } else if (duplicatedCode) {
-      const index = this.inMemoryCategories.findIndex(
-        (existingCategory) => existingCategory.code === category.code
-      );
-      this.inMemoryCategories.splice(index, 1, category);
-    } else {
-      this.inMemoryCategories.push(category);
-    }
-  }
-
   public async listPaginatedCategoriesView(
     { page, perPage } = { page: 1, perPage: 10 }
   ): Promise<PaginatedResource<ListCategoriesView>> {
@@ -97,5 +80,22 @@ export class InMemoryCategoryRepository implements CategoryRepository {
         lastPage: Math.ceil(total / perPage) || 1,
       },
     };
+  }
+
+  private saveSingleCategory(category) {
+    const duplicatedCode = this.inMemoryCategories.find(
+      (existingCategory) => existingCategory.code === category.code
+    );
+
+    if (duplicatedCode && duplicatedCode.id !== category.id) {
+      return fail(new DuplicatedEntityException());
+    } else if (duplicatedCode) {
+      const index = this.inMemoryCategories.findIndex(
+        (existingCategory) => existingCategory.code === category.code
+      );
+      this.inMemoryCategories.splice(index, 1, category);
+    } else {
+      this.inMemoryCategories.push(category);
+    }
   }
 }

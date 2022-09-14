@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { CategoriesModule } from './categories/infra/nestjs/categories.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ExpertsModule } from './experts/infra/nestjs/experts.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       sortSchema: true,
     }),
     CategoriesModule,
+    ExpertsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

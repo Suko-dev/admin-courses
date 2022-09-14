@@ -1,7 +1,7 @@
 import { DateTools, IdTools } from '@admin-cursos/utils';
 import { fail, InvalidIdException, succeed } from '@admin-cursos/exceptions';
 import { CreateSubCategoryDto } from '../../dtos/create-sub-category.dto';
-import { SubCategory, SubCategoryFactory } from '../subcategory';
+import { SubCategory, SubCategoryFactory } from '../sub-category';
 import { subCategorySlugify } from '../../../utils/sub-category-slugify';
 import { UniqueId } from '@admin-cursos/domain';
 

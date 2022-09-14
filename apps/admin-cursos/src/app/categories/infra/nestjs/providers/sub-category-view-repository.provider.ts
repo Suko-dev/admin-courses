@@ -1,11 +1,11 @@
 import { FactoryProvider } from '@nestjs/common';
 import {
-  SubCategoryRepository,
-  SubCategoryViewRepository,
+  SubCategoriesRepository,
+  SubCategoriesViewRepository,
 } from '../../../domain/repositories';
 
 export const SubCategoryViewRepositoryProvider: FactoryProvider = {
-  provide: SubCategoryViewRepository,
-  useFactory: (repository): SubCategoryViewRepository => repository,
-  inject: [SubCategoryRepository],
+  provide: SubCategoriesViewRepository,
+  useFactory: (repository): SubCategoriesViewRepository => repository,
+  inject: [SubCategoriesRepository],
 };

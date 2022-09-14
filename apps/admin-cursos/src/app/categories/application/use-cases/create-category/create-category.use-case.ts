@@ -3,12 +3,12 @@ import {
   CreateCategoryOutput,
 } from './create-category.dto';
 import { fail, succeed } from '@admin-cursos/exceptions';
-import { CategoryRepository } from '../../../domain/repositories';
+import { CategoriesRepository } from '../../../domain/repositories';
 import { CreateCategoryMapper } from './create-category-mapper';
 import { CategoryFactory } from '../../../domain/entities';
 
 export class CreateCategoryUseCase {
-  constructor(private readonly categoryRepository: CategoryRepository) {}
+  constructor(private readonly categoryRepository: CategoriesRepository) {}
 
   async execute(
     categoryInput: CreateCategoryInput

@@ -1,6 +1,6 @@
 import { ClassValidatorEntityValidator } from '@admin-cursos/domain';
 import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { CoreCategoryProps } from '../entities/core-category.entity';
+import { CoreCategoryProps } from '../entities';
 
 class CategoryValidationProps implements CoreCategoryProps {
   @IsString()

@@ -1,5 +1,5 @@
 import { fail, succeed } from '@admin-cursos/exceptions';
-import { CategoryRepository } from '../../../domain/repositories';
+import { CategoriesRepository } from '../../../domain/repositories';
 import { UpdateCategoryMapper } from './update-category-mapper';
 import {
   UpdateCategoryInput,
@@ -8,11 +8,11 @@ import {
 import { isDefined } from 'class-validator';
 
 export class UpdateCategoryUseCase {
-  constructor(private readonly categoryRepository: CategoryRepository) {}
+  constructor(private readonly categoryRepository: CategoriesRepository) {}
 
   async execute({
     id,
-    isActive,
+    setActiveTo,
     name,
   }: UpdateCategoryInput): Promise<UpdateCategoryOutput> {
     const categoryResult = await this.categoryRepository.findByIdOrFail(id);
@@ -24,14 +24,14 @@ export class UpdateCategoryUseCase {
     const category = categoryResult.value;
 
     if (name) {
-      const result = category.updateName(name);
+      const result = category.update({ name });
       if (result.isFailure()) {
         return fail(result.value);
       }
     }
 
-    if (isDefined(isActive)) {
-      category.setActive(isActive);
+    if (isDefined(setActiveTo)) {
+      setActiveTo ? category.activate() : category.deactivate();
     }
 
     const saveResult = await this.categoryRepository.save(category);

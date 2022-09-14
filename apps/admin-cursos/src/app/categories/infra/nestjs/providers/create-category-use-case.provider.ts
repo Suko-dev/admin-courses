@@ -1,10 +1,10 @@
 import { FactoryProvider } from '@nestjs/common';
 import { CreateCategoryUseCase } from '../../../application/use-cases';
-import { CategoryRepository } from '../../../domain/repositories';
+import { CategoriesRepository } from '../../../domain/repositories';
 
 export const CreateCategoryUseCaseProvider: FactoryProvider = {
   provide: CreateCategoryUseCase,
-  useFactory: (categoryRepository: CategoryRepository) =>
+  useFactory: (categoryRepository: CategoriesRepository) =>
     new CreateCategoryUseCase(categoryRepository),
-  inject: [CategoryRepository],
+  inject: [CategoriesRepository],
 };

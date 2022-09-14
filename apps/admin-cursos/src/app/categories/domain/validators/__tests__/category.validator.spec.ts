@@ -1,7 +1,7 @@
 import { CategoryValidator } from '../category.validator';
-import { CoreCategoryProps } from '../../entities/core-category.entity';
+import { CoreCategoryProps } from '../../entities';
 
-describe('CategoryValidator unit test', () => {
+describe('ExpertValidator unit test', () => {
   let categoryValidator: CategoryValidator;
   let validProps: CoreCategoryProps;
 

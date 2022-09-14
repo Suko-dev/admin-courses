@@ -1,7 +1,6 @@
 import { CreateCategoryDto } from '../../dtos/create-category.dto';
 import { DateTools, IdTools } from '@admin-cursos/utils';
-import { CategoryFactory } from '../category/category.factory';
-import { Category } from '../category/category.entity';
+import { Category, CategoryFactory } from '../category';
 import { categorySlugify } from '../../../utils/category-slugify';
 import { InvalidIdException } from '@admin-cursos/exceptions';
 
@@ -27,7 +26,7 @@ describe('SubCategoryFactory unit tests', () => {
 
   afterEach(jest.resetAllMocks);
 
-  it('should create a category with given params', () => {
+  it('should create a expert with given params', () => {
     // Act
     const categoryResult = CategoryFactory.create(completeCreateCategoryDto);
 
@@ -47,7 +46,7 @@ describe('SubCategoryFactory unit tests', () => {
   describe.each([
     ['creation date', 'createdAt'],
     ['update date', 'updatedAt'],
-  ])('when creating a category without %s', (_, param) => {
+  ])('when creating a expert without %s', (_, param) => {
     it(`should set the ${param}`, () => {
       // Arrange
       Object.assign(completeCreateCategoryDto, { [param]: null });
@@ -63,7 +62,7 @@ describe('SubCategoryFactory unit tests', () => {
     });
   });
 
-  describe('when creating a category without deletion date', () => {
+  describe('when creating a expert without deletion date', () => {
     it('should not set a deletion date', () => {
       // Arrange
       Object.assign(completeCreateCategoryDto, { deletedAt: null });
@@ -77,7 +76,7 @@ describe('SubCategoryFactory unit tests', () => {
     });
   });
 
-  describe('when creating a category without a code', () => {
+  describe('when creating a expert without a code', () => {
     it('should generate a valid code', () => {
       // Arrange
       Object.assign(completeCreateCategoryDto, { code: null });
@@ -93,7 +92,7 @@ describe('SubCategoryFactory unit tests', () => {
     });
   });
 
-  describe('when creating a category without an id', () => {
+  describe('when creating a expert without an id', () => {
     it('should not generate a new one beforehand', () => {
       // Arrange
       Object.assign(completeCreateCategoryDto, { id: undefined });
@@ -110,7 +109,7 @@ describe('SubCategoryFactory unit tests', () => {
     });
   });
 
-  describe('when trying to create a category with an invalid id', () => {
+  describe('when trying to create a expert with an invalid id', () => {
     it('should return an InvalidIdException as failure', () => {
       // Arrange
       Object.assign(completeCreateCategoryDto, { id: 'invalid id' });

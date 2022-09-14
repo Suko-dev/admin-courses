@@ -2,7 +2,7 @@ import { SubCategoryProps } from '../../entities';
 import { SubCategoryValidator } from '../sub-category.validator';
 import { UniqueId } from '@admin-cursos/domain';
 
-describe('CategoryValidator unit test', () => {
+describe('ExpertValidator unit test', () => {
   let subCategoryValidator: SubCategoryValidator;
   let validProps: SubCategoryProps;
 

@@ -15,13 +15,7 @@ export class GraphqlUpdateSubCategoryOutput {
   mainCategoryId: string;
 
   @Field()
-  createdAt: Date;
-
-  @Field()
   isActive: boolean;
-
-  @Field()
-  updatedAt: Date;
 }
 
 @InputType('UpdateSubCategoryInput')

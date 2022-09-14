@@ -1,6 +1,6 @@
 import { ClassValidatorEntityValidator, UniqueId } from '@admin-cursos/domain';
 import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { SubCategoryProps } from '../entities/subcategory/sub-category.entity';
+import { SubCategoryProps } from '../entities';
 
 class CategoryValidationProps implements SubCategoryProps {
   @IsString()

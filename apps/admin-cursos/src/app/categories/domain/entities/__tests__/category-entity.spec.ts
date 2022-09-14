@@ -1,4 +1,4 @@
-import { Category } from '../category/category.entity';
+import { Category } from '../category';
 import { CategoryValidatorFactory } from '../../validators/category-validator.factory';
 import { InvalidParametersException } from '@admin-cursos/exceptions';
 import { DateTools, IdTools } from '@admin-cursos/utils';
@@ -69,7 +69,7 @@ describe('Category unit tests', () => {
     });
 
     describe('when all parameters are valid', () => {
-      it('should return a new category', () => {
+      it('should return a new expert', () => {
         // Act
         const categoryResult = Category.create(categoryProps);
 
@@ -118,7 +118,7 @@ describe('Category unit tests', () => {
 
     it('should validate itself', () => {
       // Act
-      category.updateName('A name');
+      category.update({ name: 'A name' });
 
       // Assert
       expect(categoryValidatorSpy).toHaveBeenCalledWith(categoryProps);
@@ -134,7 +134,7 @@ describe('Category unit tests', () => {
 
       it('should return a fail result', () => {
         // Act
-        const result = category.updateName('');
+        const result = category.update({ name: '' });
 
         // Assert
         expect(result.isFailure()).toBeTruthy();
@@ -142,7 +142,7 @@ describe('Category unit tests', () => {
 
       it('should return the validation errors', () => {
         // Act
-        const result = category.updateName('');
+        const result = category.update({ name: '' });
 
         // Assert
         expect(result.value).toEqual(new InvalidParametersException(errors));
@@ -150,7 +150,7 @@ describe('Category unit tests', () => {
 
       it('should not alter its name', () => {
         // Act
-        category.updateName('');
+        category.update({ name: '' });
 
         // Assert
         expect(category.name).toEqual(defaultName);
@@ -160,7 +160,7 @@ describe('Category unit tests', () => {
     describe('when name are valid', () => {
       it('should return a success result', () => {
         // Act
-        const result = category.updateName('Another name');
+        const result = category.update({ name: 'Another name' });
 
         // Assert
         expect(result.isSuccess()).toBeTruthy();
@@ -171,7 +171,7 @@ describe('Category unit tests', () => {
         const nameToUpdate = 'Another name';
 
         // Act
-        category.updateName(nameToUpdate);
+        category.update({ name: nameToUpdate });
 
         // Assert
         expect(category.name).toEqual(nameToUpdate);
@@ -186,7 +186,7 @@ describe('Category unit tests', () => {
         const category = createCategory({ deletedAt: new Date('2022-01-01') });
 
         // Act
-        category.setActive(true);
+        category.activate();
 
         // Assert
         expect(category.deletedAt).toBeNull();
@@ -194,7 +194,7 @@ describe('Category unit tests', () => {
     });
 
     describe('when setting active to false', () => {
-      describe('given the category is active', () => {
+      describe('given the expert is active', () => {
         it('should set a deletedAt date', () => {
           // Arrange
           const category = createCategory();
@@ -202,7 +202,7 @@ describe('Category unit tests', () => {
           jest.spyOn(DateTools, 'now').mockReturnValueOnce(deletedAt);
 
           // Act
-          category.setActive(false);
+          category.deactivate();
 
           // Assert
           expect(category.deletedAt).not.toBeNull();
@@ -210,7 +210,7 @@ describe('Category unit tests', () => {
         });
       });
 
-      describe('given the category is already inactive', () => {
+      describe('given the expert is already inactive', () => {
         it('should do nothing', () => {
           // Arrange
           const deletedAt = new Date('2022-01-01');
@@ -219,7 +219,7 @@ describe('Category unit tests', () => {
           });
 
           // Act
-          category.setActive(false);
+          category.deactivate();
 
           // Assert
           expect(category.deletedAt).toEqual(deletedAt);

@@ -8,10 +8,12 @@ import {
   succeed,
 } from '@admin-cursos/exceptions';
 import { PaginatedResource } from '@admin-cursos/types';
-import { SubCategory } from '../../domain/entities/subcategory/sub-category.entity';
-import { SubCategoryRepository } from '../../domain/repositories/category/sub-category.repository';
+import { SubCategory } from '../../domain/entities';
+import { SubCategoriesRepository } from '../../domain/repositories';
 
-export class InMemorySubSubCategoryRepository implements SubCategoryRepository {
+export class InMemorySubSubCategoryRepository
+  implements SubCategoriesRepository
+{
   inMemorySubCategories: SubCategory[] = [];
 
   async findByIdOrFail(
@@ -53,24 +55,6 @@ export class InMemorySubSubCategoryRepository implements SubCategoryRepository {
     return succeed();
   }
 
-  private saveSingleSubSubCategory(subSubCategory) {
-    const duplicatedCode = this.inMemorySubCategories.find(
-      (existingSubCategory) => existingSubCategory.code === subSubCategory.code
-    );
-
-    if (duplicatedCode && duplicatedCode.id !== subSubCategory.id) {
-      return fail(new DuplicatedEntityException());
-    } else if (duplicatedCode) {
-      const index = this.inMemorySubCategories.findIndex(
-        (existingSubCategory) =>
-          existingSubCategory.code === subSubCategory.code
-      );
-      this.inMemorySubCategories.splice(index, 1, subSubCategory);
-    } else {
-      this.inMemorySubCategories.push(subSubCategory);
-    }
-  }
-
   public async listPaginatedSubCategoriesView(
     { page, perPage } = { page: 1, perPage: 10 }
   ): Promise<PaginatedResource<any>> {
@@ -97,5 +81,23 @@ export class InMemorySubSubCategoryRepository implements SubCategoryRepository {
         lastPage: Math.ceil(total / perPage) || 1,
       },
     };
+  }
+
+  private saveSingleSubSubCategory(subSubCategory) {
+    const duplicatedCode = this.inMemorySubCategories.find(
+      (existingSubCategory) => existingSubCategory.code === subSubCategory.code
+    );
+
+    if (duplicatedCode && duplicatedCode.id !== subSubCategory.id) {
+      return fail(new DuplicatedEntityException());
+    } else if (duplicatedCode) {
+      const index = this.inMemorySubCategories.findIndex(
+        (existingSubCategory) =>
+          existingSubCategory.code === subSubCategory.code
+      );
+      this.inMemorySubCategories.splice(index, 1, subSubCategory);
+    } else {
+      this.inMemorySubCategories.push(subSubCategory);
+    }
   }
 }

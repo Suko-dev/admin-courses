@@ -5,10 +5,12 @@ import {
 import { fail, succeed } from '@admin-cursos/exceptions';
 import { CreateSubCategoryMapper } from './create-sub-category-mapper';
 import { SubCategoryFactory } from '../../../domain/entities';
-import { SubCategoryRepository } from '../../../domain/repositories';
+import { SubCategoriesRepository } from '../../../domain/repositories';
 
 export class CreateSubCategoryUseCase {
-  constructor(private readonly subCategoryRepository: SubCategoryRepository) {}
+  constructor(
+    private readonly subCategoryRepository: SubCategoriesRepository
+  ) {}
 
   async execute(
     categoryInput: CreateSubCategoryInput

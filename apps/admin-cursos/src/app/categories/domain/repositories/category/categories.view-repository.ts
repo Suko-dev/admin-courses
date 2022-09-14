@@ -6,7 +6,7 @@ type Input = {
   perPage: number;
 };
 
-export abstract class CategoryViewRepository {
+export abstract class CategoriesViewRepository {
   abstract listPaginatedCategoriesView(
     input?: Input
   ): Promise<PaginatedResource<ListCategoriesView>>;

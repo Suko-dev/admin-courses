@@ -1,4 +1,4 @@
-import { CategoryRepository } from '../../../../domain/repositories';
+import { CategoriesRepository } from '../../../../domain/repositories';
 import { UpdateCategoryUseCase } from '../update-category.use-case';
 import {
   EntityNotFoundException,
@@ -17,7 +17,7 @@ describe('UpdateCategoryUseCase unit test', () => {
   const category = CategoryFactory.create({ name: initialName })
     .value as Category;
   let updateCategoryUseCase: UpdateCategoryUseCase;
-  let categoryRepositoryMock: CategoryRepository;
+  let categoryRepositoryMock: CategoriesRepository;
   let categoryRepositorySaveSpy: SpyInstance;
   let categoryRepositoryFindSpy: SpyInstance;
 
@@ -25,7 +25,7 @@ describe('UpdateCategoryUseCase unit test', () => {
     categoryRepositoryMock = {
       save: jest.fn(),
       findByIdOrFail: jest.fn(),
-    } as unknown as CategoryRepository;
+    } as unknown as CategoriesRepository;
     categoryRepositoryFindSpy = jest.spyOn(
       categoryRepositoryMock,
       'findByIdOrFail'
@@ -63,8 +63,8 @@ describe('UpdateCategoryUseCase unit test', () => {
     });
   });
 
-  describe('when a category has been found', () => {
-    describe('and the name has to be updated', () => {
+  describe('when a category has been found,', () => {
+    describe('given the name has to be updated', () => {
       const nameToUpdate = 'Another name';
       const updateCategoryInput = { id: 'An id', name: nameToUpdate };
 
@@ -77,13 +77,13 @@ describe('UpdateCategoryUseCase unit test', () => {
         expect(category.name).toEqual(nameToUpdate);
       });
 
-      describe('given an error occurs while updating a category name', () => {
+      describe('but an error occurs while updating a category name', () => {
         const error = new InvalidParametersException({
           name: ['must be not empty'],
         });
 
         beforeEach(() => {
-          jest.spyOn(category, 'updateName').mockReturnValueOnce(fail(error));
+          jest.spyOn(category, 'update').mockReturnValueOnce(fail(error));
         });
 
         afterEach(() => {
@@ -112,8 +112,11 @@ describe('UpdateCategoryUseCase unit test', () => {
       });
     });
 
-    describe('and the activation has to be updated', () => {
-      const updateCategoryInput = { id: 'An id', isActive: false };
+    describe('given the activation has to be updated', () => {
+      const updateCategoryInput: UpdateCategoryInput = {
+        id: 'An id',
+        setActiveTo: false,
+      };
 
       it('should change the category activation', async () => {
         // Act
@@ -159,7 +162,7 @@ describe('UpdateCategoryUseCase unit test', () => {
       });
     });
 
-    describe('when an error occurs while saving the updated category', () => {
+    describe('given an error occurs while saving the updated category', () => {
       const error = new InternalServerError();
 
       beforeEach(() => {

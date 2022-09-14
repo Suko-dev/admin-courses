@@ -7,6 +7,8 @@ import {
 } from '@admin-cursos/exceptions';
 import { CoreCategory, CoreCategoryProps } from '../core-category.entity';
 import { CategoryValidatorFactory } from '../../validators/category-validator.factory';
+import { DateTools } from '@admin-cursos/utils';
+import { UpdateCategoryDto } from '../../dtos/update-category.dto';
 
 export class Category extends CoreCategory {
   static create(
@@ -22,6 +24,19 @@ export class Category extends CoreCategory {
     }
 
     return succeed(category);
+  }
+
+  public update(
+    updateProps: UpdateCategoryDto
+  ): Result<InvalidParametersException, void> {
+    const errors = this.getPropsErrors({ ...this.props, ...updateProps });
+
+    if (errors) {
+      return fail(new InvalidParametersException(errors));
+    }
+    Object.assign(this.props, updateProps);
+    this.props.updatedAt = DateTools.now();
+    return succeed();
   }
 
   protected getPropsValidator(): EntityValidator {

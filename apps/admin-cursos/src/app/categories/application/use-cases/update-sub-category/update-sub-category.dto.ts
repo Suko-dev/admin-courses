@@ -8,7 +8,7 @@ import {
 export interface UpdateSubCategoryInput {
   id: string;
   name?: string;
-  isActive?: boolean;
+  setActiveTo?: boolean;
   mainCategoryId?: string;
 }
 
@@ -23,8 +23,6 @@ export type UpdatedSubcategory = {
   code: string;
   mainCategoryId: string;
   isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
 };
 
 export type UpdateSubCategoryOutput = Result<

@@ -5,19 +5,19 @@ import {
   InvalidIdException,
   Result,
 } from '@admin-cursos/exceptions';
-import { SubCategoryViewRepository } from './sub-category-view.repository';
-import { SubCategory } from '../../entities/subcategory/sub-category.entity';
+import { ExpertsViewRepository } from './experts.view-repository';
+import { Expert } from '../../entities';
 
-export abstract class SubCategoryRepository extends SubCategoryViewRepository {
+export abstract class ExpertsRepository extends ExpertsViewRepository {
   abstract save(
-    subCategory: SubCategory | SubCategory[]
+    category: Expert | Expert[]
   ): Promise<Result<InternalServerError | DuplicatedEntityException, void>>;
   abstract findByIdOrFail(
     id: string
   ): Promise<
     Result<
       InternalServerError | EntityNotFoundException | InvalidIdException,
-      SubCategory
+      Expert
     >
   >;
 }

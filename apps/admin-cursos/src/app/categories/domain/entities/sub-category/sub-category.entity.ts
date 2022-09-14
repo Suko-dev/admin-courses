@@ -8,12 +8,17 @@ import {
 } from '@admin-cursos/exceptions';
 import { SubCategoryValidatorFactory } from '../../validators/sub-category-validator.factory';
 import { DateTools } from '@admin-cursos/utils';
+import { UpdateSubcategoryDto } from '../../dtos/update-subcategory.dto';
 
 export interface SubCategoryProps extends CoreCategoryProps {
   mainCategoryId: UniqueId;
 }
 
 export class SubCategory extends CoreCategory<SubCategoryProps> {
+  get mainCategoryId(): string {
+    return this.props.mainCategoryId.value;
+  }
+
   static create(
     props: SubCategoryProps,
     uniqueId?: UniqueId
@@ -29,20 +34,15 @@ export class SubCategory extends CoreCategory<SubCategoryProps> {
     return succeed(subCategory);
   }
 
-  get mainCategoryId(): string {
-    return this.props.mainCategoryId.value;
-  }
-
-  // todo: pensar em generics
-  public updateMainCategoryId(
-    mainCategoryId: UniqueId
+  public update(
+    updateProps: UpdateSubcategoryDto
   ): Result<InvalidParametersException, void> {
-    const errors = this.getPropsErrors({ ...this.props, mainCategoryId });
+    const errors = this.getPropsErrors({ ...this.props, ...updateProps });
 
     if (errors) {
       return fail(new InvalidParametersException(errors));
     }
-    this.props.mainCategoryId = mainCategoryId;
+    Object.assign(this.props, updateProps);
     this.props.updatedAt = DateTools.now();
     return succeed();
   }

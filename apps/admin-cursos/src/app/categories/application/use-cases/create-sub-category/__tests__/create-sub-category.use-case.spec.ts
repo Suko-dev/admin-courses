@@ -1,5 +1,5 @@
 import { CreateSubCategoryUseCase } from '../create-sub-category.use-case';
-import { SubCategoryRepository } from '../../../../domain/repositories';
+import { SubCategoriesRepository } from '../../../../domain/repositories';
 import { CreateSubCategoryInput } from '../create-sub-category.dto';
 import { SubCategory, SubCategoryFactory } from '../../../../domain/entities';
 import {
@@ -19,13 +19,13 @@ describe('CreateSubCategory unit test', () => {
     .value as SubCategory;
   const createSubCategorySpy = jest.spyOn(SubCategoryFactory, 'create');
   let createSubCategoryUseCase: CreateSubCategoryUseCase;
-  let subCategoryRepositoryMock: SubCategoryRepository;
+  let subCategoryRepositoryMock: SubCategoriesRepository;
   let subCategoryRepositorySaveSpy: SpyInstance;
 
   beforeAll(() => {
     subCategoryRepositoryMock = {
       save: jest.fn(),
-    } as unknown as SubCategoryRepository;
+    } as unknown as SubCategoriesRepository;
     subCategoryRepositorySaveSpy = jest.spyOn(
       subCategoryRepositoryMock,
       'save'

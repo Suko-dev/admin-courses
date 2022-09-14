@@ -1,5 +1,5 @@
 import { CreateCategoryUseCase } from '../create-category.use-case';
-import { CategoryRepository } from '../../../../domain/repositories';
+import { CategoriesRepository } from '../../../../domain/repositories';
 import { CreateCategoryInput } from '../create-category.dto';
 import {
   fail,
@@ -10,18 +10,18 @@ import {
 import { Category, CategoryFactory } from '../../../../domain/entities';
 import SpyInstance = jest.SpyInstance;
 
-describe('UpdateCategoryUseCase unit test', () => {
+describe('CreateCategoryUseCase unit test', () => {
   const categoryInput: CreateCategoryInput = { name: 'A name' };
   const category = CategoryFactory.create(categoryInput).value as Category;
   const createCategorySpy = jest.spyOn(CategoryFactory, 'create');
   let createCategoryUseCase: CreateCategoryUseCase;
-  let categoryRepositoryMock: CategoryRepository;
+  let categoryRepositoryMock: CategoriesRepository;
   let categoryRepositorySaveSpy: SpyInstance;
 
   beforeAll(() => {
     categoryRepositoryMock = {
       save: jest.fn(),
-    } as unknown as CategoryRepository;
+    } as unknown as CategoriesRepository;
     categoryRepositorySaveSpy = jest.spyOn(categoryRepositoryMock, 'save');
   });
 
@@ -35,7 +35,7 @@ describe('UpdateCategoryUseCase unit test', () => {
     jest.resetAllMocks();
   });
 
-  describe('when an error occurs while creating a category', () => {
+  describe('when an error occurs while creating a expert', () => {
     const error = new InvalidIdException();
 
     beforeEach(() => {
@@ -59,7 +59,7 @@ describe('UpdateCategoryUseCase unit test', () => {
     });
   });
 
-  describe('when the category has been successfully created', () => {
+  describe('when the expert has been successfully created', () => {
     it('should return a success result', async () => {
       // Act
       const result = await createCategoryUseCase.execute(categoryInput);
@@ -68,7 +68,7 @@ describe('UpdateCategoryUseCase unit test', () => {
       expect(result.isSuccess()).toBeTruthy();
     });
 
-    it('should save the new category', async () => {
+    it('should save the new expert', async () => {
       // Act
       await createCategoryUseCase.execute(categoryInput);
 
@@ -76,7 +76,7 @@ describe('UpdateCategoryUseCase unit test', () => {
       expect(categoryRepositoryMock.save).toHaveBeenCalledWith(category);
     });
 
-    it('should return the created category', async () => {
+    it('should return the created expert', async () => {
       // Act
       const result = await createCategoryUseCase.execute(categoryInput);
 
@@ -89,7 +89,7 @@ describe('UpdateCategoryUseCase unit test', () => {
       });
     });
 
-    describe('given error occurs while saving the created category', () => {
+    describe('given error occurs while saving the created expert', () => {
       const error = new InternalServerError();
 
       beforeEach(() => {

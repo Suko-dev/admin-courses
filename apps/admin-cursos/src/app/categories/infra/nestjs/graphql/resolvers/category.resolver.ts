@@ -14,8 +14,8 @@ import {
   GraphqlUpdateCategoryOutput,
 } from '../types/categories/update-category';
 import {
-  CategoryViewRepository,
-  SubCategoryViewRepository,
+  CategoriesViewRepository,
+  SubCategoriesViewRepository,
 } from '../../../../domain/repositories';
 import { GraphqlCategoriesOutput } from '../types/categories/categories';
 import { GraphqlPaginationInput } from '@admin-cursos/types';
@@ -34,10 +34,10 @@ export class CategoryResolver {
   constructor(
     private readonly createCategoryUseCase: CreateCategoryUseCase,
     private readonly updateCategoryUseCase: UpdateCategoryUseCase,
-    private readonly categoryViewRepository: CategoryViewRepository,
+    private readonly categoryViewRepository: CategoriesViewRepository,
     private readonly createSubCategoryUseCase: CreateSubCategoryUseCase,
     private readonly updateSubCategoryUseCase: UpdateSubCategoryUseCase,
-    private readonly subCategoryViewRepository: SubCategoryViewRepository
+    private readonly subCategoryViewRepository: SubCategoriesViewRepository
   ) {}
 
   @Query(() => GraphqlCategoriesOutput)

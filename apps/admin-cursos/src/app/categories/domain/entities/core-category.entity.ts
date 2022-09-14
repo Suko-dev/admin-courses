@@ -4,12 +4,6 @@ import {
   FieldErrors,
   UniqueId,
 } from '@admin-cursos/domain';
-import {
-  fail,
-  InvalidParametersException,
-  Result,
-  succeed,
-} from '@admin-cursos/exceptions';
 import { DateTools } from '@admin-cursos/utils';
 
 export interface CoreCategoryProps {
@@ -52,23 +46,16 @@ export abstract class CoreCategory<
     return !this.props.deletedAt;
   }
 
-  public updateName(name: string): Result<InvalidParametersException, void> {
-    const errors = this.getPropsErrors({ ...this.props, name });
-
-    if (errors) {
-      return fail(new InvalidParametersException(errors));
+  public activate(): void {
+    if (!this.isActive) {
+      this.props.deletedAt = null;
+      this.props.updatedAt = DateTools.now();
     }
-    this.props.name = name;
-    this.props.updatedAt = DateTools.now();
-    return succeed();
   }
 
-  public setActive(isActive: boolean): void {
-    if (!isActive && this.isActive) {
+  public deactivate(): void {
+    if (this.isActive) {
       this.props.deletedAt = DateTools.now();
-      this.props.updatedAt = DateTools.now();
-    } else if (isActive && !this.isActive) {
-      this.props.deletedAt = null;
       this.props.updatedAt = DateTools.now();
     }
   }

@@ -12,9 +12,7 @@ export class UpdateSubCategoryMapper {
     return {
       id: props.id,
       code: props.code,
-      updatedAt: props.updatedAt,
       name: props.name,
-      createdAt: props.createdAt,
       isActive: !props.deletedAt,
       mainCategoryId: props.mainCategoryId.value,
     };

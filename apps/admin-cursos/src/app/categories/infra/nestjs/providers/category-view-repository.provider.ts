@@ -1,11 +1,11 @@
 import { FactoryProvider } from '@nestjs/common';
 import {
-  CategoryRepository,
-  CategoryViewRepository,
+  CategoriesRepository,
+  CategoriesViewRepository,
 } from '../../../domain/repositories';
 
 export const CategoryViewRepositoryProvider: FactoryProvider = {
-  provide: CategoryViewRepository,
-  useFactory: (repository): CategoryViewRepository => repository,
-  inject: [CategoryRepository],
+  provide: CategoriesViewRepository,
+  useFactory: (repository): CategoriesViewRepository => repository,
+  inject: [CategoriesRepository],
 };

@@ -1,5 +1,5 @@
 import { SubCategory, SubCategoryFactory } from '../../../../domain/entities';
-import { SubCategoryRepository } from '../../../../domain/repositories';
+import { SubCategoriesRepository } from '../../../../domain/repositories';
 import { UpdateSubCategoryUseCase } from '../update-sub-category.use-case';
 import {
   EntityNotFoundException,
@@ -22,7 +22,7 @@ describe('UpdateSubCategoryUseCase unit test', () => {
     mainCategoryId: IdTools.generate(),
   }).value as SubCategory;
   let updateSubCategoryUseCase: UpdateSubCategoryUseCase;
-  let subCategoryRepositoryMock: SubCategoryRepository;
+  let subCategoryRepositoryMock: SubCategoriesRepository;
   let subCategoryRepositorySaveSpy: SpyInstance;
   let subCategoryRepositoryFindSpy: SpyInstance;
 
@@ -30,7 +30,7 @@ describe('UpdateSubCategoryUseCase unit test', () => {
     subCategoryRepositoryMock = {
       save: jest.fn(),
       findByIdOrFail: jest.fn(),
-    } as unknown as SubCategoryRepository;
+    } as unknown as SubCategoriesRepository;
     subCategoryRepositoryFindSpy = jest.spyOn(
       subCategoryRepositoryMock,
       'findByIdOrFail'
@@ -78,7 +78,7 @@ describe('UpdateSubCategoryUseCase unit test', () => {
   });
 
   describe('when a subCategory has been found', () => {
-    describe('and the name has to be updated', () => {
+    describe('given the name has to be updated', () => {
       const nameToUpdate = 'Another name';
       const updateCategoryInput = { id: 'An id', name: nameToUpdate };
 
@@ -90,47 +90,11 @@ describe('UpdateSubCategoryUseCase unit test', () => {
 
         // Assert
         expect(result.isSuccess()).toBeTruthy();
-        expect(subCategory.name).toEqual(nameToUpdate);
-      });
-
-      describe('given an error occurs while updating a subCategory name', () => {
-        const error = new InvalidParametersException({
-          name: ['must be not empty'],
-        });
-
-        beforeEach(() => {
-          jest
-            .spyOn(subCategory, 'updateName')
-            .mockReturnValueOnce(fail(error));
-        });
-
-        afterEach(() => {
-          jest.restoreAllMocks();
-        });
-
-        it('should return a failure result', async () => {
-          // Act
-          const result = await updateSubCategoryUseCase.execute(
-            updateCategoryInput
-          );
-
-          // Assert
-          expect(result.isFailure()).toBeTruthy();
-        });
-
-        it('should return the exception', async () => {
-          // Act
-          const result = await updateSubCategoryUseCase.execute(
-            updateCategoryInput
-          );
-
-          // Assert
-          expect(result.value).toEqual(error);
-        });
+        expect(result.value.name).toEqual(nameToUpdate);
       });
     });
 
-    describe('and the mainCategoryId has to be updated', () => {
+    describe('given the mainCategoryId has to be updated', () => {
       const idToUpdate = IdTools.generate();
       const updateCategoryInput: UpdateSubCategoryInput = {
         id: 'An id',
@@ -145,50 +109,14 @@ describe('UpdateSubCategoryUseCase unit test', () => {
 
         // Assert
         expect(result.isSuccess()).toBeTruthy();
-        expect(subCategory.mainCategoryId).toEqual(idToUpdate);
-      });
-
-      describe('given an error occurs while updating a subCategory mainCategoryId', () => {
-        const error = new InvalidParametersException({
-          mainCategoryId: ['must be not empty'],
-        });
-
-        beforeEach(() => {
-          jest
-            .spyOn(subCategory, 'updateMainCategoryId')
-            .mockReturnValueOnce(fail(error));
-        });
-
-        afterEach(() => {
-          jest.restoreAllMocks();
-        });
-
-        it('should return a failure result', async () => {
-          // Act
-          const result = await updateSubCategoryUseCase.execute(
-            updateCategoryInput
-          );
-
-          // Assert
-          expect(result.isFailure()).toBeTruthy();
-        });
-
-        it('should return the exception', async () => {
-          // Act
-          const result = await updateSubCategoryUseCase.execute(
-            updateCategoryInput
-          );
-
-          // Assert
-          expect(result.value).toEqual(error);
-        });
+        expect((<SubCategory>result.value).mainCategoryId).toEqual(idToUpdate);
       });
     });
 
-    describe('and the activation has to be updated', () => {
+    describe('given the activation has to be updated', () => {
       const updateCategoryInput = { id: 'An id', isActive: false };
 
-      it('should change the category activation', async () => {
+      it('should change the expert activation', async () => {
         // Act
         const result = await updateSubCategoryUseCase.execute(
           updateCategoryInput
@@ -196,7 +124,42 @@ describe('UpdateSubCategoryUseCase unit test', () => {
 
         // Assert
         expect(result.isSuccess()).toBeTruthy();
-        expect(subCategory.deletedAt).not.toBeNull();
+        expect((<SubCategory>result.value).deletedAt).not.toBeNull();
+      });
+    });
+
+    describe('given an error occurs while updating a subCategory name', () => {
+      const error = new InvalidParametersException({
+        name: ['must be not empty'],
+      });
+      const updateCategoryInput = { id: 'An id', name: 'nameToUpdate' };
+
+      beforeEach(() => {
+        jest.spyOn(subCategory, 'update').mockReturnValueOnce(fail(error));
+      });
+
+      afterEach(() => {
+        jest.restoreAllMocks();
+      });
+
+      it('should return a failure result', async () => {
+        // Act
+        const result = await updateSubCategoryUseCase.execute(
+          updateCategoryInput
+        );
+
+        // Assert
+        expect(result.isFailure()).toBeTruthy();
+      });
+
+      it('should return the exception', async () => {
+        // Act
+        const result = await updateSubCategoryUseCase.execute(
+          updateCategoryInput
+        );
+
+        // Assert
+        expect(result.value).toEqual(error);
       });
     });
 
@@ -234,13 +197,11 @@ describe('UpdateSubCategoryUseCase unit test', () => {
           code: subCategory.code,
           mainCategoryId: subCategory.mainCategoryId,
           isActive: !subCategory.deletedAt,
-          createdAt: subCategory.createdAt,
-          updatedAt: subCategory.updatedAt,
         });
       });
     });
 
-    describe('when an error occurs while saving the updated subCategory', () => {
+    describe('given an error occurs while saving the updated subCategory', () => {
       const error = new InternalServerError();
 
       beforeEach(() => {

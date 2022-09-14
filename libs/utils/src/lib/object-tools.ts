@@ -1,3 +1,6 @@
+import { omit as lodashOmit } from 'lodash';
+import { isDefined } from 'class-validator';
+
 export class ObjectTools {
   static deepFreeze<T>(object: T) {
     const keys = Object.getOwnPropertyNames(object);
@@ -9,5 +12,12 @@ export class ObjectTools {
     }
 
     return Object.freeze(object);
+  }
+
+  static filterUndefinedKeysOf<T>(object: T): T {
+    return lodashOmit(
+      object,
+      Object.keys(object).filter((key) => !isDefined(object[key]))
+    );
   }
 }

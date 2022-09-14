@@ -5,19 +5,19 @@ import {
   InvalidIdException,
   Result,
 } from '@admin-cursos/exceptions';
-import { Category } from '../../entities/category/category.entity';
-import { CategoryViewRepository } from './category-view.repository';
+import { SubCategoriesViewRepository } from './sub-categories.view-repository';
+import { SubCategory } from '../../entities';
 
-export abstract class CategoryRepository extends CategoryViewRepository {
+export abstract class SubCategoriesRepository extends SubCategoriesViewRepository {
   abstract save(
-    category: Category | Category[]
+    subCategory: SubCategory | SubCategory[]
   ): Promise<Result<InternalServerError | DuplicatedEntityException, void>>;
   abstract findByIdOrFail(
     id: string
   ): Promise<
     Result<
       InternalServerError | EntityNotFoundException | InvalidIdException,
-      Category
+      SubCategory
     >
   >;
 }

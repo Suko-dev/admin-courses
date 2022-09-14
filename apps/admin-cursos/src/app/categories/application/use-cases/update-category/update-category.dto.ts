@@ -8,7 +8,7 @@ import {
 export interface UpdateCategoryInput {
   id: string;
   name?: string;
-  isActive?: boolean;
+  setActiveTo?: boolean;
 }
 
 export type UpdateCategoryExceptions =
