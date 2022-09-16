@@ -40,7 +40,9 @@ export class CategoryFactory {
     );
   }
 
-  private static buildId(id: string): InvalidIdException | UniqueId {
+  private static buildId(
+    id?: string
+  ): InvalidIdException | UniqueId | undefined {
     if (!id) {
       return;
     }

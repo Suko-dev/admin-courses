@@ -1,5 +1,15 @@
-import { ClassValidatorEntityValidator, UniqueId } from '@admin-cursos/domain';
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  ClassValidatorEntityValidator,
+  IsUniqueId,
+  UniqueId,
+} from '@admin-cursos/domain';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Validate,
+} from 'class-validator';
 import { SubCategoryProps } from '../entities';
 
 class CategoryValidationProps implements SubCategoryProps {
@@ -21,6 +31,7 @@ class CategoryValidationProps implements SubCategoryProps {
   @IsOptional()
   deletedAt: Date | null;
 
+  @Validate(IsUniqueId)
   mainCategoryId: UniqueId;
 
   constructor(partial: Partial<CategoryValidationProps>) {

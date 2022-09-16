@@ -86,7 +86,7 @@ describe('Category unit tests', () => {
 
         // Prepare response
         const id = (<Category>categoryResult.value).id;
-        const isValidId = IdTools.validate(id);
+        const isValidId = IdTools.validateUuid(id);
 
         // Assert
         expect(categoryResult.isSuccess()).toBeTruthy();

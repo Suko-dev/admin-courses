@@ -70,6 +70,7 @@ export class InMemoryCategoryRepository implements CategoriesRepository {
       ...category.toJson(),
       isActive: category.isActive,
     }));
+
     return {
       data,
       meta: {

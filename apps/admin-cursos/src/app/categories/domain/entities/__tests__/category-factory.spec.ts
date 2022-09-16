@@ -9,7 +9,7 @@ describe('SubCategoryFactory unit tests', () => {
   const defaultCreationDate = new Date('2022-01-01');
   const defaultUpdatedDate = new Date('2022-01-02');
   const defaultDeletedDate = new Date('2022-01-03');
-  const defaultId = IdTools.generate();
+  const defaultId = IdTools.generateUuid();
   const defaultName = 'A name';
   const defaultCode = `default_code`;
 

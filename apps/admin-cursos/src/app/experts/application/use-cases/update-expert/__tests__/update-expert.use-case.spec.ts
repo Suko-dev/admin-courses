@@ -17,7 +17,7 @@ let expertRepositoryFindSpy: SpyInstance;
 let expertRepositoryMock: ExpertsRepository;
 let expert: Expert;
 
-const id = IdTools.generate();
+const id = IdTools.generateUuid();
 const initialName = 'A name';
 const initialAbout = 'An about';
 const initialAvatar = 'A avatar';

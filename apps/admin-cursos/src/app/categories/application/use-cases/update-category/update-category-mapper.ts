@@ -1,15 +1,10 @@
-import { CoreCategoryProps } from '../../../domain/entities/core-category.entity';
+import { CoreCategoryProps } from '../../../domain/entities';
+import { UpdateCategoryData } from './update-category.dto';
 
 export class UpdateCategoryMapper {
-  static toOutput(props: Required<CoreCategoryProps & { id: string }>): {
-    id: string;
-    name: string;
-    code: string;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
-  } {
+  static toOutput(
+    props: Required<CoreCategoryProps & { id: string }>
+  ): UpdateCategoryData {
     return { ...props, isActive: !props.deletedAt };
   }
 }

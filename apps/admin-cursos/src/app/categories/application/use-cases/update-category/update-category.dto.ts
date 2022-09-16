@@ -16,15 +16,16 @@ export type UpdateCategoryExceptions =
   | InternalServerError
   | DuplicatedEntityException;
 
+export type UpdateCategoryData = {
+  id: string;
+  name: string;
+  code: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type UpdateCategoryOutput = Result<
   UpdateCategoryExceptions,
-  {
-    id: string;
-    name: string;
-    code: string;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
-  }
+  UpdateCategoryData
 >;

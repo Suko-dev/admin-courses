@@ -10,7 +10,7 @@ import {
 import { Expert, ExpertFactory } from '../../../../domain/entities';
 import SpyInstance = jest.SpyInstance;
 
-describe('CreateExpertUseCase unit test', () => {
+describe('CreateCourseUseCase unit test', () => {
   const expertInput: CreateExpertInput = {
     name: 'A name',
     about: 'Lorem ipsum',

@@ -1,4 +1,4 @@
-export type FieldErrors = { [field: string]: string[] };
+export type FieldErrors = { [field: string]: string[] | FieldErrors };
 
 export abstract class EntityValidator {
   protected _errors: FieldErrors;

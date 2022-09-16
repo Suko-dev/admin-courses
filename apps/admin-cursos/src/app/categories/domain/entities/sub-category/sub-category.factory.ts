@@ -47,7 +47,9 @@ export class SubCategoryFactory {
     );
   }
 
-  private static getUniqueId(id: string): InvalidIdException | UniqueId {
+  private static getUniqueId(
+    id?: string
+  ): InvalidIdException | UniqueId | undefined {
     if (!id) {
       return;
     }

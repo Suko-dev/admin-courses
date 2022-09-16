@@ -9,7 +9,7 @@ import {
 
 export class UniqueId extends ValueObject<string> {
   static create(uuid?: string): Result<InvalidIdException, UniqueId> {
-    const uniqueId = new UniqueId(uuid ?? IdTools.generate());
+    const uniqueId = new UniqueId(uuid ?? IdTools.generateUuid());
     const isValid = uniqueId.validate();
     if (isValid) {
       return succeed(uniqueId);
@@ -18,6 +18,6 @@ export class UniqueId extends ValueObject<string> {
   }
 
   validate(): boolean {
-    return IdTools.validate(this._value);
+    return IdTools.validateUuid(this._value);
   }
 }

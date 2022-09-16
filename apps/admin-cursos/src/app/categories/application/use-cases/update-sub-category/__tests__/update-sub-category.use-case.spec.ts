@@ -14,12 +14,12 @@ import SpyInstance = jest.SpyInstance;
 
 describe('UpdateSubCategoryUseCase unit test', () => {
   const updateCategoryInput: UpdateSubCategoryInput = {
-    id: IdTools.generate(),
+    id: IdTools.generateUuid(),
   };
   const initialName = 'A name';
   const subCategory = SubCategoryFactory.create({
     name: initialName,
-    mainCategoryId: IdTools.generate(),
+    mainCategoryId: IdTools.generateUuid(),
   }).value as SubCategory;
   let updateSubCategoryUseCase: UpdateSubCategoryUseCase;
   let subCategoryRepositoryMock: SubCategoriesRepository;
@@ -95,7 +95,7 @@ describe('UpdateSubCategoryUseCase unit test', () => {
     });
 
     describe('given the mainCategoryId has to be updated', () => {
-      const idToUpdate = IdTools.generate();
+      const idToUpdate = IdTools.generateUuid();
       const updateCategoryInput: UpdateSubCategoryInput = {
         id: 'An id',
         mainCategoryId: idToUpdate,

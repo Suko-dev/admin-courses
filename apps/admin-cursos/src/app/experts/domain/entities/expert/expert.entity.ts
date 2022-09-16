@@ -1,4 +1,4 @@
-import { Entity, FieldErrors, UniqueId } from '@admin-cursos/domain';
+import { Entity, EntityValidator, UniqueId } from '@admin-cursos/domain';
 import {
   fail,
   InvalidParametersException,
@@ -32,7 +32,7 @@ export class Expert extends Entity<ExpertProps> {
     return this.props.about;
   }
 
-  get avatar(): string {
+  get avatar(): string | undefined {
     return this.props.avatar;
   }
 
@@ -72,13 +72,7 @@ export class Expert extends Entity<ExpertProps> {
     return succeed();
   }
 
-  protected getPropsErrors(props: ExpertProps): FieldErrors | undefined {
-    const expertValidator = ExpertValidatorFactory.create();
-
-    const isValid = expertValidator.validate(props);
-
-    if (!isValid) {
-      return expertValidator.errors;
-    }
+  protected getPropsValidator(): EntityValidator {
+    return ExpertValidatorFactory.create();
   }
 }

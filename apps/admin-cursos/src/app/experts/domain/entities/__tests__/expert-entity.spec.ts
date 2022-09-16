@@ -85,7 +85,7 @@ describe('Expert unit tests', () => {
 
         // Prepare response
         const id = (<Expert>expertResult.value).id;
-        const isValidId = IdTools.validate(id);
+        const isValidId = IdTools.validateUuid(id);
 
         // Assert
         expect(expertResult.isSuccess()).toBeTruthy();

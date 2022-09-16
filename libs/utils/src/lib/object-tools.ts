@@ -20,4 +20,8 @@ export class ObjectTools {
       Object.keys(object).filter((key) => !isDefined(object[key]))
     );
   }
+
+  static omitKeysOf<T>(object: T, keys: (keyof T)[]): T {
+    return lodashOmit(object, keys);
+  }
 }

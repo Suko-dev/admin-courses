@@ -4,7 +4,7 @@ describe('IdTools', () => {
   describe('generate', () => {
     it('should generate an id', () => {
       // Act
-      const id = IdTools.generate();
+      const id = IdTools.generateUuid();
 
       // Assert
       expect(id).toBeDefined();
@@ -13,8 +13,8 @@ describe('IdTools', () => {
 
     it('should generate an unique id', () => {
       // Act
-      const id = IdTools.generate();
-      const anotherId = IdTools.generate();
+      const id = IdTools.generateUuid();
+      const anotherId = IdTools.generateUuid();
 
       // Assert
       expect(id).not.toEqual(anotherId);
@@ -25,10 +25,10 @@ describe('IdTools', () => {
     describe('when an id is valid', () => {
       it('should return true', () => {
         // Arrange
-        const id = IdTools.generate();
+        const id = IdTools.generateUuid();
 
         // Act
-        const isValid = IdTools.validate(id);
+        const isValid = IdTools.validateUuid(id);
 
         // Assert
         expect(isValid).toBeTruthy();
@@ -41,7 +41,7 @@ describe('IdTools', () => {
         const id = 'notAnId';
 
         // Act
-        const isValid = IdTools.validate(id);
+        const isValid = IdTools.validateUuid(id);
 
         // Assert
         expect(isValid).toBeFalsy();

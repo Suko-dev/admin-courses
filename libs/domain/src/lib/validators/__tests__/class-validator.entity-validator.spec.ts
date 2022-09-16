@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { ClassValidatorEntityValidator } from '../class-validator.entity-validator';
+import { ClassValidatorEntityValidator } from '../';
 import { EntityValidator } from '../entity-validator';
 
 class StubValidationProps {

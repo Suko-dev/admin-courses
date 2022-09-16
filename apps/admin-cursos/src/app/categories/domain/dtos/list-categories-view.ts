@@ -5,5 +5,5 @@ export class ListCategoriesView {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: Date | null;
 }

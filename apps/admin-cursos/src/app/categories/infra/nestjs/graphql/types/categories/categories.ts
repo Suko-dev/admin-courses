@@ -21,8 +21,8 @@ export class GraphqlCategoriesData {
   @Field()
   updatedAt: Date;
 
-  @Field({ nullable: true })
-  deletedAt: Date;
+  @Field(() => Date, { nullable: true })
+  deletedAt: Date | null;
 }
 
 @ObjectType('CategoriesOutput')

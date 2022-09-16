@@ -18,5 +18,7 @@ export class Success<L, R> {
 }
 
 export const succeed = <L, R>(a?: R): Result<L, R> => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return new Success<L, R>(a);
 };

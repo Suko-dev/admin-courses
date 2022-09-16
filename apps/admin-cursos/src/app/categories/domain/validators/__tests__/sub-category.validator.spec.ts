@@ -54,10 +54,9 @@ describe('ExpertValidator unit test', () => {
       ['updatedAt', 'undefined', { updatedAt: '' }],
       ['updatedAt', 'not a date', { updatedAt: '10/10/2000' }],
       ['deletedAt', 'not a date', { deletedAt: '10/10/2000' }],
-      // todo: custom decorator
-      // ['mainCategoryId', 'undefined', { mainCategoryId: undefined }],
-      // ['mainCategoryId', 'null', { mainCategoryId: null }],
-      // ['mainCategoryId', 'not an uuid', { mainCategoryId: 'fake-uuid' }],
+      ['mainCategoryId', 'undefined', { mainCategoryId: undefined }],
+      ['mainCategoryId', 'null', { mainCategoryId: null }],
+      ['mainCategoryId', 'not an uuid', { mainCategoryId: 'fake-uuid' }],
     ])('when %s is %s', (_, __, invalidProp) => {
       it('should return false', () => {
         // Arrange

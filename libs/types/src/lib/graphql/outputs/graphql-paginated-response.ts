@@ -24,10 +24,10 @@ export class GraphqlPaginationMetadata implements PaginationMetadata {
   @Field(() => Int)
   total: number;
 
-  @Field({ nullable: true })
+  @Field(() => Boolean, { nullable: true })
   hasNextPage: boolean | null;
 
-  @Field({ nullable: true })
+  @Field(() => Boolean, { nullable: true })
   hasPreviousPage: boolean | null;
 
   @Field(() => Int)

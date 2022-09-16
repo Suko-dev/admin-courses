@@ -15,7 +15,6 @@ export class UpdateSubCategoryUseCase {
     private readonly subCategoryRepository: SubCategoriesRepository
   ) {}
 
-  // todo: funções privadas
   async execute({
     id,
     name,
@@ -46,6 +45,8 @@ export class UpdateSubCategoryUseCase {
     const updateProps = ObjectTools.filterUndefinedKeysOf<UpdateSubcategoryDto>(
       {
         name,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         mainCategoryId: categoryId,
       }
     );

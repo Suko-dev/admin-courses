@@ -19,9 +19,6 @@ export class GraphqlUpdateCategoryOutput {
 
   @Field()
   updatedAt: Date;
-
-  @Field({ nullable: true })
-  deletedAt: Date;
 }
 
 @InputType('UpdateCategoryInput')

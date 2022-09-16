@@ -1,9 +1,4 @@
-import {
-  Entity,
-  EntityValidator,
-  FieldErrors,
-  UniqueId,
-} from '@admin-cursos/domain';
+import { Entity, UniqueId } from '@admin-cursos/domain';
 import { DateTools } from '@admin-cursos/utils';
 
 export interface CoreCategoryProps {
@@ -38,7 +33,7 @@ export abstract class CoreCategory<
     return this.props.updatedAt;
   }
 
-  get deletedAt(): Date {
+  get deletedAt(): Date | null {
     return this.props.deletedAt;
   }
 
@@ -59,15 +54,4 @@ export abstract class CoreCategory<
       this.props.updatedAt = DateTools.now();
     }
   }
-
-  protected getPropsErrors(props: T): FieldErrors | undefined {
-    const categoryValidator = this.getPropsValidator();
-    const isValid = categoryValidator.validate(props);
-
-    if (!isValid) {
-      return categoryValidator.errors;
-    }
-  }
-
-  protected abstract getPropsValidator(): EntityValidator;
 }

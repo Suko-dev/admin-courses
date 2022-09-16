@@ -16,11 +16,15 @@ export abstract class ValueObject<T = never> {
   toString = (): string => {
     if (typeof this.value !== 'object') {
       try {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         return this.value.toString();
       } catch (e) {
         return this.value + '';
       }
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const value = this.value.toString();
     return value === '[object Object]' ? JSON.stringify(this.value) : value;
   };

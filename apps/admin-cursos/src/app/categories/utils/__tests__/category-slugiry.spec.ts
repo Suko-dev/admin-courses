@@ -1,5 +1,5 @@
 import { categorySlugify } from '../category-slugify';
-import { CodesSuffixes } from '@admin-cursos/types';
+import { CodesPrefixes } from '@admin-cursos/types';
 
 describe('CategorySlugify unit test', () => {
   it('should add the expert suffix to a text', () => {
@@ -10,6 +10,6 @@ describe('CategorySlugify unit test', () => {
     const code = categorySlugify(baseCode);
 
     // Assert
-    expect(code).toEqual(`${CodesSuffixes.Category}_some_code`);
+    expect(code).toEqual(`${CodesPrefixes.Category}_some_code`);
   });
 });

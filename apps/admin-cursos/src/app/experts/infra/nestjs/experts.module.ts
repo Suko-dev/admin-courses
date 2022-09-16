@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ExpertsResolver } from './graphql/resolvers/expertsResolver';
+import { ExpertsResolver } from './graphql/resolvers/experts-resolver';
 import CustomProviders from './providers';
 
 @Module({

@@ -1,5 +1,6 @@
 import { Entity } from '../entity';
 import { UniqueId } from '../unique-id.vo';
+import { EntityValidator } from '../validators';
 import { IdTools } from '@admin-cursos/utils';
 
 interface StubProps {
@@ -7,13 +8,21 @@ interface StubProps {
 }
 
 class StubEntity extends Entity<StubProps> {
-  constructor(id: UniqueId) {
+  constructor(id?: UniqueId) {
     super(id);
     this.props = { mock: 'string' };
   }
 
   static create(id?: UniqueId) {
     return new StubEntity(id);
+  }
+
+  protected getPropsValidator(): EntityValidator {
+    return new (class extends EntityValidator {
+      validate(): boolean {
+        return false;
+      }
+    })();
   }
 }
 
@@ -25,7 +34,7 @@ describe('Entity unit test', () => {
 
       // Arrange
       expect(entity.id).toBeDefined();
-      expect(IdTools.validate(entity.id)).toBeTruthy();
+      expect(IdTools.validateUuid(entity.id)).toBeTruthy();
     });
   });
 
@@ -43,7 +52,7 @@ describe('Entity unit test', () => {
 
       // Assert
       expect(entity.id).toBeDefined();
-      expect(IdTools.validate(entity.id)).toBeTruthy();
+      expect(IdTools.validateUuid(entity.id)).toBeTruthy();
     });
   });
 

@@ -18,7 +18,7 @@ describe('UniqueId unit test', () => {
     describe('given a valid id string is informed on constructor', () => {
       it('should create a new UniqueId', () => {
         // Arrange
-        const uuid = IdTools.generate();
+        const uuid = IdTools.generateUuid();
 
         // Act
         const result = UniqueId.create(uuid);
