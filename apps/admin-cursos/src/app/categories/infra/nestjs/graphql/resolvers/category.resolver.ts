@@ -40,9 +40,9 @@ export class CategoryResolver {
     private readonly subCategoryViewRepository: SubCategoriesViewRepository
   ) {}
 
-  @Query(() => GraphqlCategoriesOutput)
+  @Query(() => GraphqlCategoriesOutput, { name: 'v1_categories' })
   async categories(
-    @Args('PaginationInput', { nullable: true })
+    @Args('PaginationInput', { nullable: true, name: 'v1_categories' })
     paginationInput: GraphqlPaginationInput
   ): Promise<GraphqlCategoriesOutput> {
     return await this.categoryViewRepository.listPaginatedCategoriesView(
@@ -50,7 +50,7 @@ export class CategoryResolver {
     );
   }
 
-  @Mutation(() => GraphqlCreateCategoryOutput)
+  @Mutation(() => GraphqlCreateCategoryOutput, { name: 'v1_createCategory' })
   async createCategory(
     @Args('CreateCategoryInput') categoryInput: GraphqlCreateCategoryInput
   ): Promise<GraphqlCreateCategoryOutput> {
@@ -65,7 +65,10 @@ export class CategoryResolver {
     throw categoryResult.value;
   }
 
-  @Mutation(() => GraphqlUpdateCategoryOutput, { nullable: true })
+  @Mutation(() => GraphqlUpdateCategoryOutput, {
+    nullable: true,
+    name: 'v1_updateCategory',
+  })
   async updateCategory(
     @Args('UpdateCategoryInput') categoryInput: GraphqlUpdateCategoryInput
   ): Promise<GraphqlUpdateCategoryOutput> {
@@ -90,7 +93,9 @@ export class CategoryResolver {
     );
   }
 
-  @Mutation(() => GraphqlCreateSubCategoryOutput)
+  @Mutation(() => GraphqlCreateSubCategoryOutput, {
+    name: 'v1_createSubCategory',
+  })
   async createSubCategory(
     @Args('CreateSubCategoryInput')
     createSubCategoryInput: GraphqlCreateSubCategoryInput
@@ -106,7 +111,10 @@ export class CategoryResolver {
     throw subCategoryResult.value;
   }
 
-  @Mutation(() => GraphqlUpdateSubCategoryOutput, { nullable: true })
+  @Mutation(() => GraphqlUpdateSubCategoryOutput, {
+    nullable: true,
+    name: 'v1_updateSubCategory',
+  })
   async updateSubCategory(
     @Args('UpdateSubCategoryInput')
     updateSubCategoryInput: GraphqlUpdateSubCategoryInput

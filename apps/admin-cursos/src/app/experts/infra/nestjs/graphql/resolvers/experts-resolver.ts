@@ -20,12 +20,12 @@ export class ExpertsResolver {
     private readonly expertsViewRepository: ExpertsViewRepository
   ) {}
 
-  @Query(() => [GraphqlExpertsOutput])
+  @Query(() => [GraphqlExpertsOutput], { name: 'v1_experts' })
   async experts(): Promise<GraphqlExpertsOutput[]> {
     return await this.expertsViewRepository.listExpertsView();
   }
 
-  @Mutation(() => GraphqlCreateExpertOutput)
+  @Mutation(() => GraphqlCreateExpertOutput, { name: 'v1_createExpert' })
   async createExpert(
     @Args('CreateExpertInput') expertsInput: GraphqlCreateExpertInput
   ): Promise<GraphqlCreateExpertOutput> {
@@ -38,7 +38,10 @@ export class ExpertsResolver {
     throw expertsResult.value;
   }
 
-  @Mutation(() => GraphqlUpdateExpertOutput, { nullable: true })
+  @Mutation(() => GraphqlUpdateExpertOutput, {
+    nullable: true,
+    name: 'v1_updateExpert',
+  })
   async updateExpert(
     @Args('UpdateExpertInput') expertsInput: GraphqlUpdateExpertInput
   ): Promise<GraphqlUpdateExpertOutput> {

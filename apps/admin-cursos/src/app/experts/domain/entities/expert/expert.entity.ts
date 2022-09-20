@@ -19,7 +19,7 @@ export type ExpertProps = {
 };
 
 export class Expert extends Entity<ExpertProps> {
-  constructor(props: ExpertProps, uniqueId?: UniqueId) {
+  private constructor(props: ExpertProps, uniqueId?: UniqueId) {
     super(uniqueId);
     this.props = props;
   }
@@ -57,7 +57,6 @@ export class Expert extends Entity<ExpertProps> {
 
     return succeed(expert);
   }
-
   public update(
     updateExpertDto: UpdateExpertDto
   ): Result<InvalidParametersException, void> {

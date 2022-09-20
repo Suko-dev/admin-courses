@@ -14,14 +14,17 @@ export class ObjectTools {
     return Object.freeze(object);
   }
 
-  static filterUndefinedKeysOf<T>(object: T): T {
+  static filterUndefinedKeysOf<T extends object>(object: T): Pick<T, never> {
     return lodashOmit(
       object,
       Object.keys(object).filter((key) => !isDefined(object[key]))
     );
   }
 
-  static omitKeysOf<T>(object: T, keys: (keyof T)[]): T {
+  static omitKeysOf<T extends object>(
+    object: T,
+    keys: (keyof T)[]
+  ): Pick<T, never> {
     return lodashOmit(object, keys);
   }
 }

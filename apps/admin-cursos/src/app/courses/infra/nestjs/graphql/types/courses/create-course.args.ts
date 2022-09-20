@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType('CreateCourseOutput')
 export class GraphqlCreateCourseOutput {
@@ -14,7 +14,7 @@ export class GraphqlCreateCourseOutput {
   @Field()
   categoryId: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   duration?: number;
 
   @Field(() => [String])

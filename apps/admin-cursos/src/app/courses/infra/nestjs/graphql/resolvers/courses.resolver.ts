@@ -11,8 +11,10 @@ import {
   GraphqlUpdateCourseInput,
   GraphqlUpdateCourseOutput,
 } from '../types';
+import { UsePipes, ValidationPipe } from '@nestjs/common';
 
 @Resolver()
+@UsePipes(new ValidationPipe())
 export class CoursesResolver {
   constructor(
     private readonly createCourseUseCase: CreateCourseUseCase,
@@ -25,7 +27,7 @@ export class CoursesResolver {
     return;
   }
 
-  @Mutation(() => GraphqlCreateCourseOutput)
+  @Mutation(() => GraphqlCreateCourseOutput, { name: 'v1_createCourse' })
   async createCourse(
     @Args('CreateCourseInput') coursesInput: GraphqlCreateCourseInput
   ): Promise<GraphqlCreateCourseOutput> {
@@ -38,7 +40,10 @@ export class CoursesResolver {
     throw coursesResult.value;
   }
 
-  @Mutation(() => GraphqlUpdateCourseOutput, { nullable: true })
+  @Mutation(() => GraphqlUpdateCourseOutput, {
+    nullable: true,
+    name: 'v1_updateCourse',
+  })
   async updateCourse(
     @Args('UpdateCourseInput') coursesInput: GraphqlUpdateCourseInput
   ): Promise<GraphqlUpdateCourseOutput> {

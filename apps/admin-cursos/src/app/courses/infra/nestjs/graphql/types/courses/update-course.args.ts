@@ -1,4 +1,5 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 @ObjectType('UpdateCourseOutput')
 export class GraphqlUpdateCourseOutput {
@@ -32,7 +33,7 @@ export class GraphqlUpdateCourseOutput {
   @Field({ nullable: true })
   previewUrl?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   duration?: number;
 
   @Field({ nullable: true })
@@ -42,15 +43,21 @@ export class GraphqlUpdateCourseOutput {
 @InputType('UpdateCourseInput')
 export class GraphqlUpdateCourseInput {
   @Field()
+  @IsUUID()
   id: string;
 
   @Field({ nullable: true })
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   title?: string;
 
   @Field({ nullable: true })
   isFree?: boolean;
 
   @Field(() => [String], { nullable: true })
+  @IsUUID(4, { each: true })
+  @IsOptional()
   expertsIds?: string[];
 
   @Field(() => [String], { nullable: true })
@@ -68,7 +75,7 @@ export class GraphqlUpdateCourseInput {
   @Field({ nullable: true })
   previewUrl?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   duration?: number;
 
   @Field({ nullable: true })
