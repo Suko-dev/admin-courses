@@ -11,6 +11,7 @@ import {
   GraphqlUpdateExpertInput,
   GraphqlUpdateExpertOutput,
 } from '../types';
+import { GraphqlErrorHandler } from '@admin-cursos/exceptions';
 
 @Resolver()
 export class ExpertsResolver {
@@ -35,7 +36,7 @@ export class ExpertsResolver {
       return expertsResult.value;
     }
 
-    throw expertsResult.value;
+    GraphqlErrorHandler.handle(expertsResult.value);
   }
 
   @Mutation(() => GraphqlUpdateExpertOutput, {
@@ -51,6 +52,6 @@ export class ExpertsResolver {
       return expertsResult.value;
     }
 
-    throw expertsResult.value;
+    GraphqlErrorHandler.handle(expertsResult.value);
   }
 }

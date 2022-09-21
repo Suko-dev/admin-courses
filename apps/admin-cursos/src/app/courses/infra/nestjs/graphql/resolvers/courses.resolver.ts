@@ -12,6 +12,7 @@ import {
   GraphqlUpdateCourseOutput,
 } from '../types';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
+import { GraphqlErrorHandler } from '@admin-cursos/exceptions';
 
 @Resolver()
 @UsePipes(new ValidationPipe())
@@ -37,7 +38,7 @@ export class CoursesResolver {
       return coursesResult.value;
     }
 
-    throw coursesResult.value;
+    GraphqlErrorHandler.handle(coursesResult.value);
   }
 
   @Mutation(() => GraphqlUpdateCourseOutput, {
@@ -53,6 +54,6 @@ export class CoursesResolver {
       return coursesResult.value;
     }
 
-    throw coursesResult.value;
+    GraphqlErrorHandler.handle(coursesResult.value);
   }
 }

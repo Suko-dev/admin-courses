@@ -28,6 +28,7 @@ import {
   GraphqlUpdateSubCategoryInput,
   GraphqlUpdateSubCategoryOutput,
 } from '../types/sub-categories/update-sub-category';
+import { GraphqlErrorHandler } from '@admin-cursos/exceptions';
 
 @Resolver()
 export class CategoryResolver {
@@ -62,7 +63,7 @@ export class CategoryResolver {
       return categoryResult.value;
     }
 
-    throw categoryResult.value;
+    GraphqlErrorHandler.handle(categoryResult.value);
   }
 
   @Mutation(() => GraphqlUpdateCategoryOutput, {
@@ -80,7 +81,7 @@ export class CategoryResolver {
       return categoryResult.value;
     }
 
-    throw categoryResult.value;
+    GraphqlErrorHandler.handle(categoryResult.value);
   }
 
   @Query(() => GraphqlSubCategoriesOutput)
@@ -108,7 +109,7 @@ export class CategoryResolver {
       return subCategoryResult.value;
     }
 
-    throw subCategoryResult.value;
+    GraphqlErrorHandler.handle(subCategoryResult.value);
   }
 
   @Mutation(() => GraphqlUpdateSubCategoryOutput, {
@@ -119,14 +120,14 @@ export class CategoryResolver {
     @Args('UpdateSubCategoryInput')
     updateSubCategoryInput: GraphqlUpdateSubCategoryInput
   ): Promise<GraphqlUpdateSubCategoryOutput> {
-    const categoryResult = await this.updateSubCategoryUseCase.execute(
+    const subCategoryResult = await this.updateSubCategoryUseCase.execute(
       updateSubCategoryInput
     );
 
-    if (categoryResult.isSuccess()) {
-      return categoryResult.value;
+    if (subCategoryResult.isSuccess()) {
+      return subCategoryResult.value;
     }
 
-    throw categoryResult.value;
+    GraphqlErrorHandler.handle(subCategoryResult.value);
   }
 }
