@@ -5,6 +5,7 @@
     "admin-cursos": "apps/admin-cursos",
     "domain": "libs/domain",
     "exceptions": "libs/exceptions",
+    "front-components": "libs/front/components",
     "types": "libs/types",
     "utils": "libs/utils"
   }
